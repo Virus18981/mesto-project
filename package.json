@@ -1,0 +1,24 @@
+{
+  "name": "mesto-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rd /s /q dist && webpack",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Virus18981/mesto-project.git"
+  },
+  "author": "Ivan Saltykov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Virus18981/mesto-project/issues"
+  },
+  "homepage": "https://github.com/Virus18981/mesto-project#readme",
+  "devDependencies": {
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1"
+  }
+}
