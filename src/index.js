@@ -2,6 +2,7 @@ import "./pages/index.css";
 import { initialCards } from "./scripts/cards.js";
 import { createCard, removeCard, handleLike } from "./components/card.js";
 import { openModal, closeModal, popupOverlayClickListener, popupCloseButtonClickListener } from "./components/modal.js";
+import { clearValidation, enableValidation } from "./components/validation.js";
 
 export const cardTemplate = document.querySelector("#card-template").content;
 const placesList = document.querySelector(".places__list");
@@ -16,12 +17,22 @@ const profileNameElement = document.querySelector(".profile__title");
 const profileJobElement = document.querySelector(".profile__description");
 const formElementProfile = document.forms["edit-profile"];
 const nameInput = formElementProfile.elements.name;
+const formError = formElementProfile.querySelector(`.${nameInput.id}-error`);
 const jobInput = formElementProfile.elements.description;
 const formElementPlace = document.forms["new-place"];
 const placeNameInput = formElementPlace.elements["place-name"];
 const linkInput = formElementPlace.elements.link;
 const newCardPopap = document.querySelector(".popup_type_new-card");
 const popups = document.querySelectorAll(".popup");
+
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input-error_active",
+};
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
@@ -33,7 +44,6 @@ function handleFormSubmit(evt) {
   profileJobElement.textContent = jobValue;
 
   closeModal(popupEdit);
-  formElementProfile.reset();
 }
 
 function submitPlaceForm(evt) {
@@ -49,14 +59,19 @@ function submitPlaceForm(evt) {
   placesList.prepend(newCard);
 
   closeModal(newCardPopap);
-  formElementPlace.reset();
 }
 
 buttonEdit.addEventListener("click", function () {
+  nameInput.value = profileNameElement.textContent;
+  jobInput.value = profileJobElement.textContent;
+  clearValidation(formElementProfile, validationConfig);
   openModal(popupEdit);
 });
 
 buttonAdd.addEventListener("click", function () {
+  placeNameInput.value = "";
+  linkInput.value = "";
+  clearValidation(formElementPlace, validationConfig);
   openModal(popupNewCard);
 });
 
@@ -83,3 +98,4 @@ function openImagePopup(cardLink, cardName) {
   openModal(popupImage);
 }
 
+enableValidation(validationConfig);

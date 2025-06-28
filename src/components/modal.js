@@ -1,4 +1,3 @@
-
 function openModal(popup) {
   popup.classList.add("popup_is-animated");
   setTimeout(function () {
@@ -15,7 +14,8 @@ function closeModal(popup) {
 function popupOverlayClickListener(evt) {
   if (evt.target.classList.contains("popup")) {
     closeModal(evt.target);
-}}
+  }
+}
 
 function popupCloseButtonClickListener(evt) {
   closeModal(evt.target.closest(".popup"));
